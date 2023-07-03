@@ -11,6 +11,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { onMounted, ref, unref } from 'vue';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { inspector } from '../../editor/index.js';
 
 interface WorkType {
   loadModel(url: string, callback?: (event: ProgressEvent) => void): Promise<void>;
@@ -49,23 +50,23 @@ dracoLoader.setDecoderPath('js/libs/draco/gltf/');
 
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
-// loader.load('models/gltf/LittlestTokyo/LittlestTokyo.glb', function (gltf) {
+loader.load('models/gltf/Soldier.glb', function (gltf) {
 
-//   const model = gltf.scene;
-//   model.position.set(1, 1, 0);
-//   model.scale.set(0.01, 0.01, 0.01);
-//   scene.add(model);
+  const model = gltf.scene;
+  model.position.set(1, 1, 0);
+  // model.scale.set(0.01, 0.01, 0.01);
+  scene.add(model);
+  mixer = new THREE.AnimationMixer(model);
+  mixer.clipAction(gltf.animations[0]).play();
 
-//   mixer = new THREE.AnimationMixer(model);
-//   mixer.clipAction(gltf.animations[0]).play();
+  inspector(scene);
+  animate();
 
-//   animate();
+}, undefined, function (e) {
 
-// }, undefined, function (e) {
+  console.error(e);
 
-//   console.error(e);
-
-// });
+});
 
 
 function loadGltf(gltf: GLTF) {
@@ -109,19 +110,20 @@ window.onresize = function () {
 
 onMounted(async () => {
   if (container.value) {
-    unref(container)!.appendChild(stats.dom);
+    // unref(container)!.appendChild(stats.dom);
     unref(container)!.appendChild(renderer.domElement);
   }
 
-  await obj.loadModel('/models/gltf/LittlestTokyo/LittlestTokyo.gltf');
+  // await obj.loadModel('/models/gltf/LittlestTokyo/LittlestTokyo.gltf');
 
-  obj.getModelVal().then((val) => {
-    // console.log(new URL('./worker.ts', import.meta.url));
+  // obj.getModelVal().then((val) => {
+  //   // console.log(new URL('./worker.ts', import.meta.url));
 
-    loader.parseAsync(JSON.parse(val), '/models/gltf/LittlestTokyo/').then((gltf) => {
-      loadGltf(gltf);
-    });
-  });
+  //   loader.parseAsync(JSON.parse(val), '/models/gltf/LittlestTokyo/').then((gltf) => {
+  //     loadGltf(gltf);
+  //     inspector(scene);
+  //   });
+  // });
 });
 
 // interface WorkType {

@@ -1,11 +1,13 @@
-
-import { Sidebar } from './js/Sidebar.js';
+import { Sidebar, Scene } from './js/Sidebar.js';
 import { Editor } from './js/Editor.js';
 
-function cerate() {
-  const editor = new Editor();
+function inspector(scene) {
+  const editor = new Editor(scene);
   const sidebar = new Sidebar(editor);
   document.body.appendChild(sidebar.dom);
+
+  const sceneSidebar = new Scene(editor);
+  document.body.appendChild(sceneSidebar.dom);
 }
 
-export { cerate };
+export { inspector };

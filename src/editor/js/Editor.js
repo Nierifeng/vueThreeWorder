@@ -6,13 +6,14 @@ import { History as _History } from './History.js';
 import { Strings } from './Strings.js';
 import { Storage as _Storage } from './Storage.js';
 import { Selector } from './Viewport.Selector.js';
+import { signals } from './libs/signals.js'
 
 var _DEFAULT_CAMERA = new THREE.PerspectiveCamera( 50, 1, 0.01, 1000 );
 _DEFAULT_CAMERA.name = 'Camera';
 _DEFAULT_CAMERA.position.set( 0, 5, 10 );
 _DEFAULT_CAMERA.lookAt( new THREE.Vector3() );
 
-function Editor() {
+function Editor(scene) {
 
 	const Signal = signals.Signal; // eslint-disable-line no-undef
 
@@ -45,10 +46,6 @@ function Editor() {
 		rendererCreated: new Signal(),
 		rendererUpdated: new Signal(),
 
-		sceneBackgroundChanged: new Signal(),
-		sceneEnvironmentChanged: new Signal(),
-		sceneFogChanged: new Signal(),
-		sceneFogSettingsChanged: new Signal(),
 		sceneGraphChanged: new Signal(),
 		sceneRendered: new Signal(),
 
@@ -102,7 +99,7 @@ function Editor() {
 
 	this.camera = _DEFAULT_CAMERA.clone();
 
-	this.scene = new THREE.Scene();
+	this.scene = scene ?? new THREE.Scene();
 	this.scene.name = 'Scene';
 
 	this.sceneHelpers = new THREE.Scene();

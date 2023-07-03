@@ -362,7 +362,7 @@ function SidebarObject( editor ) {
 	// user data
 
 	const objectUserDataRow = new UIRow();
-	const objectUserData = new UITextArea().setWidth( '150px' ).setHeight( '40px' ).setFontSize( '12px' ).onChange( update );
+	const objectUserData = new UITextArea().setWidth( '175px' ).setHeight( '125px' ).setFontSize( '12px' ).onChange( update );
 	objectUserData.onKeyUp( function () {
 
 		try {
