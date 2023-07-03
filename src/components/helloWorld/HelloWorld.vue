@@ -139,6 +139,10 @@ onMounted(async () => {
 // init();
 </script>
 
+<style>
+@import "../../editor/css/main.css";
+</style>
+
 <style scoped>
 .read-the-docs {
   color: #888;

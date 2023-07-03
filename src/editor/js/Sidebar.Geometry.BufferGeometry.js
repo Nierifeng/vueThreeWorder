@@ -47,7 +47,7 @@ function SidebarGeometryBufferGeometry(editor) {
         const attribute = attributes[name];
 
         containerAttributes.add(new UIText(name).setWidth('80px'));
-        containerAttributes.add(new UIText(attribute.count + ' (' + attribute.itemSize + ')').setFontSize('12px'));
+        containerAttributes.add(new UIText(attribute.count.format() + ' (' + attribute.itemSize + ')').setFontSize('12px'));
         containerAttributes.add(new UIBreak());
 
       }
